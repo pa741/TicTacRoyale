@@ -1,0 +1,166 @@
+.background{
+    background-image: url("../public/back1.png");
+    width: 100vw;
+    height: 100vh;
+    filter: brightness(0.9);
+    position: absolute;
+    z-index: -1;
+}
+
+.home{
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+.homeForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 50%;
+    height: 50%;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+}
+.homeForm input{
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    padding: 10px;
+    font-size: 20px;
+}
+
+.title{
+    font-size: 50px;
+    color: white;
+    text-shadow: 2px 2px 2px black;
+
+}
+.homeForm h2{
+    font-size: 20px;
+    color: lightgray;
+    text-shadow: 2px 2px 2px black;
+}
+.homeForm button{
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    padding: 10px;
+    font-size: 20px;
+    background-color: #2ecc71;
+    color: white;
+    cursor: pointer;
+}
+.homeForm button:hover{
+    background-color: #27ae60;
+}
+.homeForm button:active{
+    background-color: #1e8449;
+}
+
+
+
+
+.container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+
+    
+    
+}
+.table {
+    width: 40%;
+    aspect-ratio: 1/1;
+    border-collapse: collapse;
+    perspective: 1000px;
+    transform: Rotatex(50deg) rotatez(-20deg) translatez(10px) translate(10px,-10px);
+    
+
+}
+
+.square .topwall {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    position: relative;
+   
+    font-size: 10rem;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.square .topwall::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: all 0.5s ease;
+    z-index: 10;
+
+}
+.square{
+    flex: 1;
+    aspect-ratio: 1/1;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 30px;
+
+    border-radius: 10px;
+    overflow: hidden;
+
+    margin: 5px;
+    transition: all 0.5s ease;
+    position: relative;
+
+
+
+
+    perspective: 1000px;
+}
+.square:not(.disabled){
+    cursor: pointer;
+}
+.square.disabled{
+    background-color: lightgray;
+}
+.square:hover{
+    background-color: grey;
+    transform: translate(3px, -10px) scale(1.01);
+
+}
+
+.square:hover .topwall::before{
+
+    opacity: 1;
+    transform: translateZ(-1px) scale(1.1);
+}
+
+
+.boardRow{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
