@@ -12,6 +12,7 @@ const logger = require("firebase-functions/logger");
 const {onDocumentWritten} = require("firebase-functions/v2/firestore");
 
 
+
 exports.onGameChange = onDocumentWritten(
     {
         document: "rooms/{roomId}",
@@ -23,12 +24,21 @@ exports.onGameChange = onDocumentWritten(
       const newValue = event.data.after.data();
       const previousValue = event.data.before.data();
       //check board change
-        if(newValue.board === previousValue.board) return;
+        if(newValue.board === previousValue?.board) return;
         //check if board is full
-        if(newValue.board.filter((x)=>x==="").length === 0) {
-            logger.info("BOARD FULL");
+        logger.info("winner: " + newValue.winner);
+        if(newValue.winner != null) {
+            logger.info("WINNER ALREADY DECLARED");
             return;
         }
+        if(newValue.board.filter((x)=>x==="").length === 0) {
+            logger.info("BOARD FULL");
+            return event.data.after.ref.update({
+                winner: "draw"
+            });
+        }
+
+
         //check if board has a winner
         const winningCombos = [
             [0,1,2], [3,4,5], [6,7,8],
@@ -40,19 +50,22 @@ exports.onGameChange = onDocumentWritten(
         winningCombos.forEach((combo) => {
             if(board[combo[0]] !== "" && board[combo[0]] === board[combo[1]] && board[combo[1]] === board[combo[2]]) {
                 winner = board[combo[0]];
+                if(winner === "hover") winner = null;
             }
         });
         if(winner) {
             logger.info("WINNER: " + winner);
 
             //update room
-            const roomDoc = doc(db, "rooms", event.params.roomId);
+           /* const roomDoc = doc(db, "rooms", event.params.roomId);
             roomDoc.update({
                 winner: winner
+            });*/
+
+
+            return event.data.after.ref.update({
+                winner: winner
             });
-
-
-            return;
         }
 
       logger.info("New value: " + newValue);

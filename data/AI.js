@@ -56,15 +56,18 @@ function SumRowPoints(row, board) {
 
 
 function SpaceInBoard(board){
-    
+    console.log("SpaceInBoard");
+    console.log(board);
+    let flag = false;
     board.forEach(square => {
         
-        if(square == "" ||square == undefined){
-            return true
+        console.log(square);
+        if(square == "" ||square == undefined ||square == '' ){
+            flag = true;
         }
 
     });
-    return false;
+    return flag;
     
 }
 
@@ -73,6 +76,7 @@ function CalculateMove(board) {
 
     if(!SpaceInBoard(board))
     {
+        console.log("No hay espacio en el tablero");
         return -1;
     }
 
